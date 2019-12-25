@@ -6,6 +6,8 @@ class FilmsInformationView extends EventEmitter {
     this.filmId = document.getElementById('film-id');
     this.filmName = document.getElementById('film-name');
     this.filmDirector = document.getElementById('film-director');
+    this.filmGenre = document.getElementById('film-genre');
+    this.filmDescription = document.getElementById('film-description');
     this.film = document.getElementById('film-info');
     this.film.addEventListener('drop', this.handleDrop.bind(this));
     this.film.addEventListener('dragover', this.handleDragOver.bind(this));

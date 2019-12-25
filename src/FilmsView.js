@@ -7,6 +7,8 @@ class FilmsView extends EventEmiter {
     this.filterButton = document.createElement('button');
     this.inputFilmName = document.getElementById('add-film-Name');
     this.inputFilmDirector = document.getElementById('add-film-Director');
+    this.inputFilmGenre = document.getElementById('add-film-Genre');
+    this.inputFilmDescription = document.getElementById('add-film-Description');
     this.list = document.getElementById('films-list');
     this.form.addEventListener('submit', this.handleAdd.bind(this));
   }
@@ -43,8 +45,19 @@ class FilmsView extends EventEmiter {
     if (this.inputFilmDirector.value === '') {
       return null;
     }
+    if (this.inputFilmGenre.value === '') {
+      return null;
+    }
+    if (this.inputFilmDescription.value === '') {
+      return null;
+    }
 
-    this.emit('add', [`${this.inputFilmName.value} `, `${this.inputFilmDirector.value}`]);
+    this.emit('add', [
+      `${this.inputFilmName.value} `,
+      `${this.inputFilmDirector.value}`,
+      `${this.inputFilmGenre.value}`,
+      `${this.inputFilmDescription.value}`,
+    ]);
 
     return null;
   }
@@ -68,7 +81,8 @@ class FilmsView extends EventEmiter {
     const listItem = this.createFilmItem(film);
     this.inputFilmName.value = '';
     this.inputFilmDirector.value = '';
-    this.inputFilmDescription = '';
+    this.inputFilmGenre.value = '';
+    this.inputFilmDescription.value = '';
     this.list.appendChild(listItem);
   }
 

@@ -13,6 +13,8 @@ class FilmsController {
       id: this.model.state.length > 0 ? this.model.state[this.model.state.length - 1].id + 1 : 1,
       title: filmName[0],
       director: filmName[1],
+      genre: filmName[2],
+      description: filmName[3],
     });
     // alert(JSON.stringify(film));
     // alert(JSON.stringify(this.model.state));
@@ -28,9 +30,11 @@ class FilmsController {
 
   dragFilm(film) {
     const [info] = this.model.state.filter(item => item.title === film);
-    this.filmsinfoview.filmId.textContent = `Id: ${info.id}`;
-    this.filmsinfoview.filmName.textContent = `Title: ${info.title}`;
-    this.filmsinfoview.filmDirector.textContent = `Director: ${info.director}`;
+    // this.filmsinfoview.filmId.textContent = `Id: ${info.id}`;
+    this.filmsinfoview.filmName.textContent = `Название: ${info.title}`;
+    this.filmsinfoview.filmDirector.textContent = `Режиссёр: ${info.director}`;
+    this.filmsinfoview.filmGenre.textContent = `Жанр: ${info.genre}`;
+    this.filmsinfoview.filmDescription.textContent = `Описание: ${info.description}`;
   }
 }
 

@@ -18,7 +18,7 @@ for (const key of keys) {
 }
 function start(arr) {
   arr.forEach(element => {
-    filmsController.addFilm([element.title, element.director]);
+    filmsController.addFilm([element.title, element.director, element.genre, element.description]);
   });
 }
 start(storage);
