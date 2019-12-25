@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Andersen JS Course</title>
+  </head>
+  <body>
+	<h1>
+  	Фильмотека
+    </h1>
+    <main id="app">
+             
+        <div  id="films">
+          <h1>
+            Фильмы
+          </h1> 
+          <ul id="films-list">
+          </ul>
+          
+       
+          <form id="films-Lib">
+              <fieldset>
+                  <legend>Добавить фильм</legend>
+              <p>Название:<br/><input id="add-film-Name" type="text"></p>
+              <p>Режиссёр:<br/><input id="add-film-Director" type="text"></p>
+              <button id="add-button" type="submit">Добавить</button>
+          </form>
+        </div>
+        <div class = "films-Information" id = "films-info">
+        <h1>
+          Информация о фильме
+        </h1>
+        <label class="filminformation" id = "film-info" ></label>
+        <ul id = "film-info-list">
+        <li id = "film-id">Id: </li>
+        <li id = "film-name">Title: </li>
+        <li id = "film-director">Director: </li>
+        </ul>
+      </div>
+        <div id="my-Films">
+      <h1>
+        Мои фильмы
+      </h1>
+      <label id = "my-Film"></label><br>
+      <ul id ="my-films-list">
+
+      </ul>
+    </div>
+  </body>
+</html>
