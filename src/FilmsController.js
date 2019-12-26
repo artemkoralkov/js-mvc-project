@@ -16,14 +16,10 @@ class FilmsController {
       genre: filmName[2],
       description: filmName[3],
     });
-    // alert(JSON.stringify(film));
-    // alert(JSON.stringify(this.model.state));
-    localStorage.setItem(film.id, JSON.stringify(film));
     this.view.addItem(film);
   }
 
   removeFilm(id) {
-    localStorage.removeItem(id);
     this.model.removeItem(id);
     this.view.removeItem(id);
   }
