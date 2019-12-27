@@ -7,9 +7,9 @@ body {
     text-align: center;
   }
   main {
- 
+    
     background-image: url(../images/pinkdust.png);
-    /* width: 1300px; */
+    width: 1480px;
     margin: 50px auto;
     border-radius: 2px;
     overflow: hidden;
@@ -25,14 +25,15 @@ body {
     background-position: right bottom;
     background-repeat : no-repeat;
     float: left;
+    height: auto;
     width: 450px;
     margin: 50px 0px 50px 20px;
-    overflow: scroll;
+    overflow: hidden;
     /* outline: 2px solid #000; /* Чёрная рамка */ 
     border: 3px solid #fff; /* Белая рамка */
     border-radius: 10px; /* Радиус скругления */
     }
-
+    
     #my-Films {
       background:transparent;
       /* outline: 2px solid #000; /* Чёрная рамка */ 
@@ -43,7 +44,7 @@ body {
       background-position: right bottom;
       background-repeat : no-repeat;
       float: left;
-      width: 300px;
+      width: 450px;
       margin: 50px 0px 50px 20px;
       overflow: hidden;
       }

@@ -3,22 +3,35 @@ import FilmsModel from './FilmsModel';
 import FilmsView from './FilmsView';
 import FilmsController from './FilmsController';
 import FilmsInformationView from './FilmsInformationView';
+import MyFilmsView from './MyFilmsView';
+import MyFilmsModel from './MyFilmsModel';
+import MyFilmsController from './MyFilmsController';
 
 const filmsModel = new FilmsModel();
 const filmsView = new FilmsView();
 const filmsInfoView = new FilmsInformationView();
-const filmsController = new FilmsController(filmsModel, filmsView, filmsInfoView);
-// localStorage.clear();
-/* const storage = [];
-const keys = Object.keys(localStorage);
-for (const key of keys) {
-  if (localStorage.getItem(key) !== 'INFO') {
-    storage.push(JSON.parse(localStorage.getItem(key)));
-  }
-} */
-function start(arr) {
-  arr.forEach(element => {
+const myFilmsView = new MyFilmsView();
+const myFilmsModel = new MyFilmsModel();
+const myFilmsController = new MyFilmsController(myFilmsModel, myFilmsView, filmsInfoView);
+const filmsController = new FilmsController(
+  filmsModel,
+  filmsView,
+  filmsInfoView,
+  myFilmsView,
+  myFilmsModel,
+  MyFilmsController
+);
+function startFilms(arrFilms, arrMyFilms) {
+  arrFilms.forEach(element => {
     filmsController.addFilm([element.title, element.director, element.genre, element.description]);
   });
+  arrMyFilms.forEach(element => {
+    myFilmsController.addFilm([
+      element.title,
+      element.director,
+      element.genre,
+      element.description,
+    ]);
+  });
 }
-start(JSON.parse(localStorage.getItem('state')));
+startFilms(JSON.parse(localStorage.getItem('state')), JSON.parse(localStorage.getItem('mystate')));
