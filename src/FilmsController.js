@@ -1,8 +1,10 @@
 class FilmsController {
-  constructor(model, view, filmsinfoview) {
+  constructor(model, view, filmsinfoview, mymodel, myview) {
     this.model = model;
     this.view = view;
     this.filmsinfoview = filmsinfoview;
+    this.mymodel = mymodel;
+    this.myview = myview;
     view.on('add', this.addFilm.bind(this));
     view.on('remove', this.removeFilm.bind(this));
     view.on('click', this.clickOnFilm.bind(this));
@@ -20,6 +22,8 @@ class FilmsController {
   }
 
   removeFilm(id) {
+    this.mymodel.removeItem(id);
+    this.myview.removeItem(id);
     this.model.removeItem(id);
     this.view.removeItem(id);
   }

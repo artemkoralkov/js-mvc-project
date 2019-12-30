@@ -7,6 +7,8 @@ class MyFilmsView extends EventEmiter {
     this.addingFilm = document.getElementById('my-Film');
     this.myFilm = document.getElementById('my-Film');
     this.clearMyFilms = document.getElementById('clear-my-films');
+    this.sortButton = document.getElementById('sort-my-films');
+    this.sortButton.addEventListener('click', this.handleSort.bind(this));
     this.clearMyFilms.addEventListener('click', this.handleClear.bind(this));
     this.myFilm.addEventListener('drop', this.handleDrop.bind(this));
     this.myFilm.addEventListener('dragover', this.handleDragOver.bind(this));
@@ -61,9 +63,26 @@ class MyFilmsView extends EventEmiter {
     return null;
   } */
 
+  handleSort() {
+    const newList = this.list.cloneNode(false);
+    const sortList = [];
+    for (let i = this.list.childNodes.length; i--; ) {
+      if (this.list.childNodes[i].nodeName === 'LI') sortList.push(this.list.childNodes[i]);
+    }
+    sortList.sort(
+      (a, b) => parseInt(b.childNodes[0].data, 10) - parseInt(a.childNodes[0].data, 10)
+    );
+    for (let i = 0; i < sortList.length; i++) {
+      newList.appendChild(sortList[i]);
+    }
+    this.list.parentNode.replaceChild(newList, this.list);
+    this.emit('sort', null);
+  }
+
   handleClear() {
     localStorage.removeItem('mystate');
     Array.from(this.list.childNodes).forEach(element => element.remove());
+    return this;
   }
 
   handleOnClick({ target }) {

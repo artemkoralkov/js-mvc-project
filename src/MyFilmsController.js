@@ -7,6 +7,11 @@ class MyFilmsController {
     view.on('removeMy', this.removeFilm.bind(this));
     view.on('click', this.clickOnFilm.bind(this));
     view.on('drop', this.prepare.bind(this));
+    view.on('sort', this.sortMyFilms.bind(this));
+  }
+
+  sortMyFilms() {
+    this.model.mystate.sort((a, b) => parseInt(b.title, 10) - parseInt(a.title, 10));
   }
 
   prepare(film) {

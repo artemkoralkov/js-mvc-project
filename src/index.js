@@ -13,16 +13,21 @@ const filmsInfoView = new FilmsInformationView();
 const myFilmsView = new MyFilmsView();
 const myFilmsModel = new MyFilmsModel();
 const myFilmsController = new MyFilmsController(myFilmsModel, myFilmsView, filmsInfoView);
-const filmsController = new FilmsController(filmsModel, filmsView, filmsInfoView);
-/* const films = [{ id: 1, title: '1', director: '2', genre: '3', description: '4' }]; */
-// localStorage.setItem('state', JSON.stringify(films));
-function startFilms(arrFilms, arrMyFilms /* , arrStart */) {
+const filmsController = new FilmsController(
+  filmsModel,
+  filmsView,
+  filmsInfoView,
+  myFilmsModel,
+  myFilmsView
+);
+const films = [
+  { title: '1', director: '2', genre: '3', description: '4' },
+  { title: '2', director: '3', genre: '4', description: '5' },
+];
+function startFilms(arrFilms, arrMyFilms) {
   arrFilms.forEach(element => {
     filmsController.addFilm([element.title, element.director, element.genre, element.description]);
   });
-  /* arrStart.forEach(element => {
-    filmsController.addFilm([element.title, element.director, element.genre, element.description]);
-  }); */
   arrMyFilms.forEach(element => {
     myFilmsController.addFilm([
       element.id,
@@ -33,8 +38,13 @@ function startFilms(arrFilms, arrMyFilms /* , arrStart */) {
     ]);
   });
 }
-startFilms(
-  JSON.parse(localStorage.getItem('state')),
-  JSON.parse(localStorage.getItem('mystate')) /* , */
-  /*   films */
-);
+if (localStorage.getItem('state').length < 3) {
+  films.forEach(element => {
+    filmsController.addFilm([element.title, element.director, element.genre, element.description]);
+  });
+} else {
+  startFilms(
+    JSON.parse(localStorage.getItem('state')),
+    JSON.parse(localStorage.getItem('mystate'))
+  );
+}
