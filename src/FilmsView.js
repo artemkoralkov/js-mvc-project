@@ -31,7 +31,8 @@ class FilmsView extends EventEmiter {
   addEventListeners(item) {
     const removeButton = item.querySelector('button.remove');
     const itemlabel = item.querySelector('label.title');
-    itemlabel.addEventListener('dragend', this.handleDrag.bind(this));
+    itemlabel.addEventListener('dragstart', this.handleDragStart.bind(this));
+    itemlabel.addEventListener('click', this.handleClick.bind(this));
     removeButton.addEventListener('click', this.handleRemove.bind(this));
     return item;
   }
@@ -62,6 +63,11 @@ class FilmsView extends EventEmiter {
     return null;
   }
 
+  handleClick({ target }) {
+    const name = target.textContent;
+    this.emit('click', name);
+  }
+
   handleRemove({ target }) {
     const listItem = target.parentNode;
 
@@ -72,9 +78,9 @@ class FilmsView extends EventEmiter {
     return this.list.querySelector(`[data-id="${id}"]`);
   }
 
-  handleDrag({ target }) {
-    const draw = target.textContent;
-    this.emit('draging', draw);
+  handleDragStart(event) {
+    event.dataTransfer.setData('Text', event.target.textContent);
+    return this;
   }
 
   addItem(film) {

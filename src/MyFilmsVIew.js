@@ -4,27 +4,31 @@ class MyFilmsView extends EventEmiter {
   constructor() {
     super();
     this.list = document.getElementById('my-films-list');
+    this.addingFilm = document.getElementById('my-Film');
+    this.myFilm = document.getElementById('my-Film');
+    this.myFilm.addEventListener('drop', this.handleDrop.bind(this));
+    this.myFilm.addEventListener('dragover', this.handleDragOver.bind(this));
+    this.myFilm.addEventListener('dragleave', this.handleDragLeave.bind(this));
   }
 
-  createFilmItem(film, id) {
+  createFilmItem(film) {
     const removeButton = document.createElement('button');
-    removeButton.className = 'remove';
+    removeButton.className = 'removeMy';
     const label = document.createElement('label');
     label.className = 'mytitle';
-    label.textContent = film;
-    label.draggable = 'true';
+    label.textContent = film.title;
     const item = document.createElement('li');
     item.className = 'myfilm-Item';
-    item.setAttribute('data-id', id);
+    item.setAttribute('mydata-id', film.id);
     item.appendChild(removeButton);
     item.appendChild(label);
     return this.addEventListeners(item);
   }
 
   addEventListeners(item) {
-    const removeButton = item.querySelector('button.remove');
+    const removeButton = item.querySelector('button.removeMy');
     const itemlabel = item.querySelector('label.mytitle');
-    itemlabel.addEventListener('dragend', this.handleDrag.bind(this));
+    itemlabel.addEventListener('click', this.handleOnClick.bind(this));
     removeButton.addEventListener('click', this.handleRemove.bind(this));
     return item;
   }
@@ -55,22 +59,44 @@ class MyFilmsView extends EventEmiter {
     return null;
   } */
 
+  handleOnClick({ target }) {
+    const name = target.textContent;
+    this.emit('click', name);
+  }
+
   handleRemove({ target }) {
     const listItem = target.parentNode;
-    this.emit('remove', listItem.getAttribute('data-id'));
+    this.emit('removeMy', listItem.getAttribute('mydata-id'));
   }
 
   findlistItem(id) {
-    return this.list.querySelector(`[data-id="${id}"]`);
+    return this.list.querySelector(`[mydata-id="${id}"]`);
   }
 
-  handleDrag({ target }) {
-    const draw = target.textContent;
-    this.emit('draging', draw);
+  handleDragOver(event) {
+    event.preventDefault();
+    const dragOverLabel = event.target;
+    dragOverLabel.style.opacity = 0.5;
+    return this;
   }
 
-  addItem(film, id) {
-    const listItem = this.createFilmItem(film, id);
+  handleDragLeave(event) {
+    event.preventDefault();
+    const dragLeavingLabel = event.target;
+    dragLeavingLabel.style.opacity = 1;
+    return this;
+  }
+
+  handleDrop(event) {
+    event.preventDefault();
+    const dropFilm = event.target;
+    dropFilm.style.opacity = 1;
+    this.emit('drop', event.dataTransfer.getData('Text'));
+    return this;
+  }
+
+  addItem(film) {
+    const listItem = this.createFilmItem(film);
     /*  this.inputFilmName.value = '';
     this.inputFilmDirector.value = '';
     this.inputFilmGenre.value = '';

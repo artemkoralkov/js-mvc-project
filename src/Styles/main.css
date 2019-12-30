@@ -1,4 +1,5 @@
 body {
+  background-image: url(../images/pinkdust.png);
     margin: 0;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
@@ -11,27 +12,32 @@ body {
     background-image: url(../images/pinkdust.png);
     width: 1480px;
     margin: 50px auto;
-    border-radius: 2px;
+    border: hidden;
     overflow: hidden;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+    
   }
 
   #films {
+  
     /* min-width: 1000px; */
     scroll-behavior: auto;
     background:transparent;
     background-image: url(../images/email-pattern.png);
     background-size: 100%;
     background-position: right bottom;
-    background-repeat : no-repeat;
+    background-repeat : repeat;
     float: left;
-    height: auto;
+    height: 600px;
     width: 450px;
     margin: 50px 0px 50px 20px;
     overflow: hidden;
     /* outline: 2px solid #000; /* Чёрная рамка */ 
     border: 3px solid #fff; /* Белая рамка */
     border-radius: 10px; /* Радиус скругления */
+    }
+    #films-list{
+      overflow: scroll;
+      height: 160px;
     }
     
     #my-Films {
@@ -42,7 +48,7 @@ body {
       background-image: url(../images/email-pattern.png);
       background-size: 100%;
       background-position: right bottom;
-      background-repeat : no-repeat;
+      background-repeat : repeat;
       float: left;
       width: 450px;
       margin: 50px 0px 50px 20px;
@@ -58,7 +64,7 @@ body {
         background-image: url(../images/email-pattern.png);
         background-size: 100%;
         background-position: right bottom;
-        background-repeat : no-repeat;
+        background-repeat : repeat;
         background-color: transparent;
         float: left;
         overflow: hidden;
@@ -70,7 +76,7 @@ body {
     border: 3px solid #fff; /* Белая рамка */
     border-radius: 10px; /* Радиус скругления */
       }
-      .remove{
+      .remove, .removeMy{
         background: url(../images/recyclebin.png);
         background-size: 90%;
        background-repeat : no-repeat;

@@ -1,14 +1,13 @@
 class FilmsController {
-  constructor(model, view, filmsinfoview, myfilmsview, mymodel, myfilmscontroller) {
+  constructor(model, view, filmsinfoview, myfilmsview, myfilmscontroller) {
     this.model = model;
     this.view = view;
     this.filmsinfoview = filmsinfoview;
     this.myfilmsview = myfilmsview;
-    this.mymodel = mymodel;
     this.myfilmscontroller = myfilmscontroller;
     view.on('add', this.addFilm.bind(this));
     view.on('remove', this.removeFilm.bind(this));
-    view.on('draging', this.dragFilm.bind(this));
+    view.on('click', this.clickOnFilm.bind(this));
   }
 
   addFilm(filmInfo) {
@@ -27,14 +26,12 @@ class FilmsController {
     this.view.removeItem(id);
   }
 
-  dragFilm(film) {
+  clickOnFilm(film) {
     const [info] = this.model.state.filter(item => item.title === film);
-    // this.filmsinfoview.filmId.textContent = `Id: ${info.id}`;
     this.filmsinfoview.filmName.textContent = `Название: ${info.title}`;
     this.filmsinfoview.filmDirector.textContent = `Режиссёр: ${info.director}`;
     this.filmsinfoview.filmGenre.textContent = `Жанр: ${info.genre}`;
     this.filmsinfoview.filmDescription.textContent = `${info.description}`;
-    this.myfilmscontroller.addFilm([info.title, info.director, info.genre, info.description]);
   }
 }
 

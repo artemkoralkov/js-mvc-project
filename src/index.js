@@ -18,15 +18,20 @@ const filmsController = new FilmsController(
   filmsView,
   filmsInfoView,
   myFilmsView,
-  myFilmsModel,
   MyFilmsController
 );
-function startFilms(arrFilms, arrMyFilms) {
+/* const films = [{ id: 1, title: '1', director: '2', genre: '3', description: '4' }]; */
+// localStorage.setItem('state', JSON.stringify(films));
+function startFilms(arrFilms, arrMyFilms /* , arrStart */) {
   arrFilms.forEach(element => {
     filmsController.addFilm([element.title, element.director, element.genre, element.description]);
   });
+  /* arrStart.forEach(element => {
+    filmsController.addFilm([element.title, element.director, element.genre, element.description]);
+  }); */
   arrMyFilms.forEach(element => {
     myFilmsController.addFilm([
+      element.id,
       element.title,
       element.director,
       element.genre,
@@ -34,4 +39,8 @@ function startFilms(arrFilms, arrMyFilms) {
     ]);
   });
 }
-startFilms(JSON.parse(localStorage.getItem('state')), JSON.parse(localStorage.getItem('mystate')));
+startFilms(
+  JSON.parse(localStorage.getItem('state')),
+  JSON.parse(localStorage.getItem('mystate')) /* , */
+  /*   films */
+);
