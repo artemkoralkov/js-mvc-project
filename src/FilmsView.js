@@ -39,8 +39,12 @@ class FilmsView extends EventEmiter {
 
   handleAdd(event) {
     event.preventDefault();
-
-    if (this.inputFilmName.value === '') {
+    const filmsNames = JSON.parse(localStorage.getItem('state')).map(element => element.title);
+    if (filmsNames.includes(`${this.inputFilmName.value} `)) {
+      this.inputFilmName.value = 'Фильм уже есть в списке';
+      return null;
+    }
+    if (this.inputFilmName.value === '' || this.inputFilmName === 'Фильм уже есть в списке') {
       return null;
     }
     if (this.inputFilmDirector.value === '') {
@@ -54,7 +58,7 @@ class FilmsView extends EventEmiter {
     }
 
     this.emit('add', [
-      `${this.inputFilmName.value} `,
+      `${this.inputFilmName.value}`,
       `${this.inputFilmDirector.value}`,
       `${this.inputFilmGenre.value}`,
       `${this.inputFilmDescription.value}`,

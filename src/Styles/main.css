@@ -39,6 +39,11 @@ body {
       overflow: scroll;
       height: 160px;
     }
+
+    #my-films-list{
+      overflow: scroll;
+      height: 200px;
+    }
     
     #my-Films {
       background:transparent;
@@ -51,6 +56,7 @@ body {
       background-repeat : repeat;
       float: left;
       width: 450px;
+      height: 400px;
       margin: 50px 0px 50px 20px;
       overflow: hidden;
       }

@@ -1,10 +1,8 @@
 class FilmsController {
-  constructor(model, view, filmsinfoview, myfilmsview, myfilmscontroller) {
+  constructor(model, view, filmsinfoview) {
     this.model = model;
     this.view = view;
     this.filmsinfoview = filmsinfoview;
-    this.myfilmsview = myfilmsview;
-    this.myfilmscontroller = myfilmscontroller;
     view.on('add', this.addFilm.bind(this));
     view.on('remove', this.removeFilm.bind(this));
     view.on('click', this.clickOnFilm.bind(this));

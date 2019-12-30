@@ -6,6 +6,8 @@ class MyFilmsView extends EventEmiter {
     this.list = document.getElementById('my-films-list');
     this.addingFilm = document.getElementById('my-Film');
     this.myFilm = document.getElementById('my-Film');
+    this.clearMyFilms = document.getElementById('clear-my-films');
+    this.clearMyFilms.addEventListener('click', this.handleClear.bind(this));
     this.myFilm.addEventListener('drop', this.handleDrop.bind(this));
     this.myFilm.addEventListener('dragover', this.handleDragOver.bind(this));
     this.myFilm.addEventListener('dragleave', this.handleDragLeave.bind(this));
@@ -59,6 +61,11 @@ class MyFilmsView extends EventEmiter {
     return null;
   } */
 
+  handleClear() {
+    localStorage.removeItem('mystate');
+    Array.from(this.list.childNodes).forEach(element => element.remove());
+  }
+
   handleOnClick({ target }) {
     const name = target.textContent;
     this.emit('click', name);
@@ -91,6 +98,14 @@ class MyFilmsView extends EventEmiter {
     event.preventDefault();
     const dropFilm = event.target;
     dropFilm.style.opacity = 1;
+    if (localStorage.getItem('mystate') !== null) {
+      const filmsNames = JSON.parse(localStorage.getItem('mystate')).map(element => element.title);
+      if (filmsNames.includes(event.dataTransfer.getData('Text'))) {
+        dropFilm.textContent = 'Фильм уже есть в списке';
+        return null;
+      }
+    }
+    dropFilm.textContent = 'Добавить фильм';
     this.emit('drop', event.dataTransfer.getData('Text'));
     return this;
   }

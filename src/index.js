@@ -13,13 +13,7 @@ const filmsInfoView = new FilmsInformationView();
 const myFilmsView = new MyFilmsView();
 const myFilmsModel = new MyFilmsModel();
 const myFilmsController = new MyFilmsController(myFilmsModel, myFilmsView, filmsInfoView);
-const filmsController = new FilmsController(
-  filmsModel,
-  filmsView,
-  filmsInfoView,
-  myFilmsView,
-  MyFilmsController
-);
+const filmsController = new FilmsController(filmsModel, filmsView, filmsInfoView);
 /* const films = [{ id: 1, title: '1', director: '2', genre: '3', description: '4' }]; */
 // localStorage.setItem('state', JSON.stringify(films));
 function startFilms(arrFilms, arrMyFilms /* , arrStart */) {
