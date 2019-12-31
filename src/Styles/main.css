@@ -36,12 +36,12 @@ body {
     border-radius: 10px; /* Радиус скругления */
     }
     #films-list{
-      overflow: auto;
+      overflow: scroll;
       height: 160px;
     }
 
     #my-films-list{
-      overflow: auto;
+      overflow: scroll;
       height: 200px;
     }
     
@@ -75,7 +75,7 @@ body {
         float: left;
         overflow: hidden;
         width: 450px;
-        height: 400px;
+        height: 600px;
         margin: 50px 20px 50px 20px;
         border: none;
         /* outline: 2px solid #000; /* Чёрная рамка */ 

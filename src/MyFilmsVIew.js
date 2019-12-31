@@ -37,32 +37,6 @@ class MyFilmsView extends EventEmiter {
     return item;
   }
 
-  /* handleAdd(event) {
-    event.preventDefault();
-
-    if (this.inputFilmName.value === '') {
-      return null;
-    }
-    if (this.inputFilmDirector.value === '') {
-      return null;
-    }
-    if (this.inputFilmGenre.value === '') {
-      return null;
-    }
-    if (this.inputFilmDescription.value === '') {
-      return null;
-    }
-
-    this.emit('add', [
-      `${this.inputFilmName.value} `,
-      `${this.inputFilmDirector.value}`,
-      `${this.inputFilmGenre.value}`,
-      `${this.inputFilmDescription.value}`,
-    ]);
-
-    return null;
-  } */
-
   handleSort() {
     const newList = this.list.cloneNode(false);
     const sortList = [];
@@ -131,10 +105,6 @@ class MyFilmsView extends EventEmiter {
 
   addItem(film) {
     const listItem = this.createFilmItem(film);
-    /*  this.inputFilmName.value = '';
-    this.inputFilmDirector.value = '';
-    this.inputFilmGenre.value = '';
-    this.inputFilmDescription.value = ''; */
     this.list.appendChild(listItem);
   }
 

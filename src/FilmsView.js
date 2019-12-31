@@ -9,6 +9,7 @@ class FilmsView extends EventEmiter {
     this.inputFilmDirector = document.getElementById('add-film-Director');
     this.inputFilmGenre = document.getElementById('add-film-Genre');
     this.inputFilmDescription = document.getElementById('add-film-Description');
+    this.inputImgSrc = document.getElementById('add-film-poster');
     this.list = document.getElementById('films-list');
     this.form.addEventListener('submit', this.handleAdd.bind(this));
   }
@@ -40,11 +41,11 @@ class FilmsView extends EventEmiter {
   handleAdd(event) {
     event.preventDefault();
     const filmsNames = JSON.parse(localStorage.getItem('state')).map(element => element.title);
-    if (filmsNames.includes(`${this.inputFilmName.value} `)) {
+    if (filmsNames.includes(`${this.inputFilmName.value}`)) {
       this.inputFilmName.value = 'Фильм уже есть в списке';
       return null;
     }
-    if (this.inputFilmName.value === '' || this.inputFilmName === 'Фильм уже есть в списке') {
+    if (this.inputFilmName.value === '' || this.inputFilmName.value === 'Фильм уже есть в списке') {
       return null;
     }
     if (this.inputFilmDirector.value === '') {
@@ -56,12 +57,25 @@ class FilmsView extends EventEmiter {
     if (this.inputFilmDescription.value === '') {
       return null;
     }
+    if (this.inputImgSrc.value === '') {
+      this.inputImgSrc.value =
+        'C:/Users/Пользователь/Documents/js-project/src/images/img_not_found.png';
+      this.emit('add', [
+        `${this.inputFilmName.value}`,
+        `${this.inputFilmDirector.value}`,
+        `${this.inputFilmGenre.value}`,
+        `${this.inputFilmDescription.value}`,
+        `${this.inputImgSrc.value}`,
+      ]);
+      return null;
+    }
 
     this.emit('add', [
       `${this.inputFilmName.value}`,
       `${this.inputFilmDirector.value}`,
       `${this.inputFilmGenre.value}`,
       `${this.inputFilmDescription.value}`,
+      `${this.inputImgSrc.value}`,
     ]);
 
     return null;

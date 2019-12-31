@@ -26,7 +26,13 @@ const films = [
 ];
 function startFilms(arrFilms, arrMyFilms) {
   arrFilms.forEach(element => {
-    filmsController.addFilm([element.title, element.director, element.genre, element.description]);
+    filmsController.addFilm([
+      element.title,
+      element.director,
+      element.genre,
+      element.description,
+      element.poster,
+    ]);
   });
   arrMyFilms.forEach(element => {
     myFilmsController.addFilm([

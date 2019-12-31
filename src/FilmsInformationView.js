@@ -10,6 +10,7 @@ class FilmsInformationView extends EventEmitter {
     this.filmGenre = document.getElementById('film-genre');
     this.filmDescription = document.getElementById('film-description');
     this.usingFilm = document.getElementById('film-info');
+    this.filmImg = document.getElementById('film-poster');
   }
 }
 export default FilmsInformationView;
