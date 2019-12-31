@@ -36,26 +36,28 @@
           Информация о фильме
         </h1>
         <p style="text-align: center;">Постер </p>
-        <p id= "film-poster" style="text-align: center;" ><img width="200px" height="200px"/></p>
+        <p id= "film-poster" style="text-align: center;" ><img height="220px" width="300px" /></p>
         <ul id = "film-info-list">
         <li id = "film-name">Название:</li>
         <li id = "film-director">Режиссёр: </li>
         <li id = "film-genre">Жанр: </li>
         </ul>
         <p style="text-align: center"> Описание: </p>
-        <fieldset>
-        <p style='text-align: center' id = 'film-description'></p>
+        <fieldset style="overflow: auto; height: 100px;">
+        <p id = 'film-description'></p>
       </fieldset>
       </div>
         <div id="my-Films">
       <h1>
         Мои фильмы
       </h1>
-      <label id = "my-Film">Добавить фильм</label><br>
+      <label id = "my-Film" > <p style="text-align: center;">Добавить фильм</p></label><br>
       <ul id ="my-films-list">
       </ul>
+      <fieldset style="border: aliceblue;">
       <button id ="clear-my-films">Очистить</button>
       <button id ="sort-my-films">Отсортировать</button>
+    </fieldset>
     </div>
   </body>
 </html>

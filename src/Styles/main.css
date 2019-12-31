@@ -36,15 +36,18 @@ body {
     border-radius: 10px; /* Радиус скругления */
     }
     #films-list{
-      overflow: scroll;
-      height: 160px;
+      overflow: auto;
+      height: 140px;
     }
 
     #my-films-list{
-      overflow: scroll;
+      overflow: auto;
       height: 200px;
     }
-    
+    #film-description-field{
+      height: 150px;
+      overflow: scroll;
+    }
     #my-Films {
       background:transparent;
       /* outline: 2px solid #000; /* Чёрная рамка */ 
