@@ -36,12 +36,12 @@ body {
     border-radius: 10px; /* Радиус скругления */
     }
     #films-list{
-      overflow: scroll;
+      overflow: auto;
       height: 160px;
     }
 
     #my-films-list{
-      overflow: scroll;
+      overflow: auto;
       height: 200px;
     }
     

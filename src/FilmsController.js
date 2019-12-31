@@ -22,8 +22,10 @@ class FilmsController {
   }
 
   removeFilm(id) {
-    this.mymodel.removeItem(id);
-    this.myview.removeItem(id);
+    if (this.mymodel.mystate.map(element => element.id).includes(+id)) {
+      this.mymodel.removeItem(id);
+      this.myview.removeItem(id);
+    }
     this.model.removeItem(id);
     this.view.removeItem(id);
   }
