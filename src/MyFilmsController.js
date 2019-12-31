@@ -34,6 +34,7 @@ class MyFilmsController {
       director: filmInfo[2],
       genre: filmInfo[3],
       description: filmInfo[4],
+      poster: filmInfo[5],
     });
     this.view.addItem(film);
   }
@@ -49,6 +50,7 @@ class MyFilmsController {
     this.filmsinfoview.filmDirector.textContent = `Режиссёр: ${info.director}`;
     this.filmsinfoview.filmGenre.textContent = `Жанр: ${info.genre}`;
     this.filmsinfoview.filmDescription.textContent = `${info.description}`;
+    this.filmsinfoview.filmImg.firstChild.src = `${info.poster}`;
   }
 }
 

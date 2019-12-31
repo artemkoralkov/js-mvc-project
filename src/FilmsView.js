@@ -58,8 +58,7 @@ class FilmsView extends EventEmiter {
       return null;
     }
     if (this.inputImgSrc.value === '') {
-      this.inputImgSrc.value =
-        'C:/Users/Пользователь/Documents/js-project/src/images/img_not_found.png';
+      this.inputImgSrc.value = '..images/img_not_found.png';
       this.emit('add', [
         `${this.inputFilmName.value}`,
         `${this.inputFilmDirector.value}`,
