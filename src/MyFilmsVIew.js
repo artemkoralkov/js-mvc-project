@@ -38,18 +38,14 @@ class MyFilmsView extends EventEmiter {
   }
 
   handleSort() {
-    const newList = this.list.cloneNode(false);
     const sortList = [];
-    for (let i = this.list.childNodes.length; i--; ) {
-      if (this.list.childNodes[i].nodeName === 'LI') sortList.push(this.list.childNodes[i]);
+    for (let i = 0; i < this.list.children.length; i++) {
+      sortList.push(this.list.children[i].lastElementChild.textContent);
     }
-    sortList.sort(
-      (a, b) => parseInt(b.childNodes[0].data, 10) - parseInt(a.childNodes[0].data, 10)
-    );
-    for (let i = 0; i < sortList.length; i++) {
-      newList.appendChild(sortList[i]);
+    sortList.sort();
+    for (let i = 0; i < this.list.children.length; i++) {
+      this.list.children[i].lastElementChild.textContent = sortList[i];
     }
-    this.list.parentNode.replaceChild(newList, this.list);
     this.emit('sort', null);
   }
 

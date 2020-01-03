@@ -114,7 +114,7 @@ function startFilms(arrFilms, arrMyFilms) {
     ]);
   });
 }
-if (localStorage.getItem('state').length < 3) {
+if (localStorage.getItem('state') === null || localStorage.getItem('state').length < 3) {
   films.forEach(element => {
     filmsController.addFilm([
       element.title,

@@ -1,5 +1,5 @@
 body {
-  background-image: url(../images/pinkdust.png);
+    background-image: url(../images/pinkdust.png);
     margin: 0;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
@@ -7,8 +7,9 @@ body {
   h1 {
     text-align: center;
   }
+
   main {
-    
+  
     background-image: url(../images/pinkdust.png);
     width: 1480px;
     margin: 50px auto;
@@ -24,7 +25,7 @@ body {
     background:transparent;
     background-image: url(../images/email-pattern.png);
     background-size: 100%;
-    background-position: right bottom;
+   /*  background-position: right bottom; */
     background-repeat : repeat;
     float: left;
     height: 600px;
@@ -34,62 +35,88 @@ body {
     /* outline: 2px solid #000; /* Чёрная рамка */ 
     border: 3px solid #fff; /* Белая рамка */
     border-radius: 10px; /* Радиус скругления */
-    }
-    #films-list{
-      overflow: auto;
-      height: 140px;
-    }
+    
+  }
 
-    #my-films-list{
-      overflow: auto;
-      height: 200px;
-    }
-    #film-description-field{
-      height: 150px;
-      overflow: scroll;
-    }
-    #my-Films {
-      background:transparent;
-      /* outline: 2px solid #000; /* Чёрная рамка */ 
-      border: 3px solid #fff; /* Белая рамка */
-      border-radius: 10px; /* Радиус скругления */
-      background-image: url(../images/email-pattern.png);
-      background-size: 100%;
-      background-position: right bottom;
-      background-repeat : repeat;
-      float: left;
-      width: 450px;
-      height: 400px;
-      margin: 50px 0px 50px 20px;
-      overflow: hidden;
-      }
-      .filminformation {
-        display: block;
-        text-align: center;
-      
-      }
-      #films-info {
-        background:transparent;
-        background-image: url(../images/email-pattern.png);
-        background-size: 100%;
-        background-position: right bottom;
-        background-repeat : repeat;
-        background-color: transparent;
-        float: left;
-        overflow: hidden;
-        width: 450px;
-        height: 600px;
-        margin: 50px 20px 50px 20px;
-        border: none;
-        /* outline: 2px solid #000; /* Чёрная рамка */ 
+  #films-list {
+
+    overflow: auto;
+    height: 140px;
+    
+  }
+
+  #films-info {
+
+    background:transparent;
+    background-image: url(../images/email-pattern.png);
+    background-size: 100%;
+    /* background-position: right bottom; */
+    background-repeat : repeat;
+    background-color: transparent;
+    float: left;
+    overflow: hidden;
+    width: 450px;
+    height: 600px;
+    margin: 50px 0px 50px 20px;
+    border: none;
+    /* outline: 2px solid #000; /* Чёрная рамка */ 
     border: 3px solid #fff; /* Белая рамка */
     border-radius: 10px; /* Радиус скругления */
-      }
-      .remove, .removeMy{
-        background: url(../images/recyclebin.png);
-        background-size: 90%;
-       background-repeat : no-repeat;
-       width: 18px;  height: 23px;
-       }
+  
+}
+
+  #film-description-field {
+
+    height: 150px;
+    overflow: scroll;
+
+}
+
+  .filminformation {
+
+    display: block;
+    text-align: center;
+      
+  }
+
+  #my-Films {
+    
+    background:transparent;
+      /* outline: 2px solid #000; /* Чёрная рамка */ 
+    border: 3px solid #fff; /* Белая рамка */
+    border-radius: 10px; /* Радиус скругления */
+    background-image: url(../images/email-pattern.png);
+    background-size: 100%;
+    /* background-position: right bottom; */
+    background-repeat : repeat;
+    float: left;
+    width: 450px;
+    height: 600px;
+    margin: 50px 0px 50px 20px;
+      
+  }
+
+  #my-films-list {
+
+    overflow: auto;
+    height: 400px;
+
+}
+
+#buttons {
+
+    position: absolute;
+    top: 725px;
+
+}
+
+  .remove, .removeMy {
+
+    background: url(../images/recyclebin.png);
+    background-size: 90%;
+    background-repeat : no-repeat;
+    width: 18px;  height: 23px;
+       
+  }
   
  
