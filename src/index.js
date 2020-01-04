@@ -104,15 +104,18 @@ function startFilms(arrFilms, arrMyFilms) {
       element.poster,
     ]);
   });
-  arrMyFilms.forEach(element => {
-    myFilmsController.addFilm([
-      element.id,
-      element.title,
-      element.director,
-      element.genre,
-      element.description,
-    ]);
-  });
+  if (localStorage.getItem('mystate') !== null) {
+    arrMyFilms.forEach(element => {
+      myFilmsController.addFilm([
+        element.id,
+        element.title,
+        element.director,
+        element.genre,
+        element.description,
+        element.poster,
+      ]);
+    });
+  }
 }
 if (localStorage.getItem('state') === null || localStorage.getItem('state').length < 3) {
   films.forEach(element => {

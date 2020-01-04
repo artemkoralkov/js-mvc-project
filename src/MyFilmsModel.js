@@ -18,10 +18,7 @@ class MyFilmsModel {
       'mystate',
       JSON.stringify(JSON.parse(localStorage.getItem('mystate')).filter(elem => elem.id !== +id))
     );
-    const index = this.mystate.filter(item => item.id !== id);
-    if (index > -1) {
-      this.mystate.splice(index, 1);
-    }
+    this.mystate = this.mystate.filter(item => item.id !== +id);
   }
 }
 

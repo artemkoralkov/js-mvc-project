@@ -14,14 +14,16 @@ class FilmsModel {
   }
 
   removeItem(id) {
+    // alert(JSON.stringify(this.state));
     localStorage.setItem(
       'state',
       JSON.stringify(JSON.parse(localStorage.getItem('state')).filter(elem => elem.id !== +id))
     );
-    const index = this.state.filter(item => item.id !== id);
-    if (index > -1) {
+    this.state = this.state.filter(item => item.id !== +id);
+    /*  if (index > -1) {
       this.state.splice(index, 1);
-    }
+    } */
+    // alert(JSON.stringify(this.state));
   }
 }
 

@@ -1,5 +1,8 @@
 import EventEmiter from './helper';
 
+const image = require('C:/Users/Пользователь/Documents/js-project/src/images/img-not-found.png');
+const unirest = require('unirest');
+
 class FilmsView extends EventEmiter {
   constructor() {
     super();
@@ -11,6 +14,7 @@ class FilmsView extends EventEmiter {
     this.inputFilmDescription = document.getElementById('add-film-Description');
     this.inputImgSrc = document.getElementById('add-film-poster');
     this.list = document.getElementById('films-list');
+    this.list.addEventListener('click', this.handleClick.bind(this));
     this.form.addEventListener('submit', this.handleAdd.bind(this));
   }
 
@@ -33,7 +37,6 @@ class FilmsView extends EventEmiter {
     const removeButton = item.querySelector('button.remove');
     const itemlabel = item.querySelector('label.title');
     itemlabel.addEventListener('dragstart', this.handleDragStart.bind(this));
-    itemlabel.addEventListener('click', this.handleClick.bind(this));
     removeButton.addEventListener('click', this.handleRemove.bind(this));
     return item;
   }
@@ -43,6 +46,29 @@ class FilmsView extends EventEmiter {
     const filmsNames = JSON.parse(localStorage.getItem('state')).map(element => element.title);
     if (filmsNames.includes(`${this.inputFilmName.value}`)) {
       this.inputFilmName.value = 'Фильм уже есть в списке';
+      return null;
+    }
+    if (
+      this.inputFilmGenre.value === '' &&
+      this.inputFilmDirector.value === '' &&
+      this.inputFilmDescription.value === '' &&
+      this.inputImgSrc.value === '' &&
+      this.inputFilmName.value !== ''
+    ) {
+      unirest
+        .get(`http://www.omdbapi.com/?t=${this.inputFilmName.value}&apikey=4085b160`)
+        .end(response => {
+          if (response.body.Response === 'False') {
+            this.inputFilmName.value = `${response.body.Error}, введите название на английском`;
+          } else
+            this.emit('add', [
+              `${response.body.Title}`,
+              `${response.body.Director}`,
+              `${response.body.Genre}`,
+              `${response.body.Plot}`,
+              `${response.body.Poster}`,
+            ]);
+        });
       return null;
     }
     if (this.inputFilmName.value === '' || this.inputFilmName.value === 'Фильм уже есть в списке') {
@@ -58,13 +84,12 @@ class FilmsView extends EventEmiter {
       return null;
     }
     if (this.inputImgSrc.value === '') {
-      // this.inputImgSrc.value = '/images/img_not_found.png';
       this.emit('add', [
         `${this.inputFilmName.value}`,
         `${this.inputFilmDirector.value}`,
         `${this.inputFilmGenre.value}`,
         `${this.inputFilmDescription.value}`,
-        'C:/Users/Пользователь/Documents/js-project/src/images/img-not-found.png',
+        `${image}`,
       ]);
       return null;
     }
@@ -112,6 +137,12 @@ class FilmsView extends EventEmiter {
 
   removeItem(id) {
     const listItem = this.findlistItem(id);
+    listItem
+      .querySelector('label.title')
+      .removeEventListener('dragstart', this.handleDragStart.bind(this));
+    listItem
+      .querySelector('button.remove')
+      .removeEventListener('click', this.handleRemove.bind(this));
     this.list.removeChild(listItem);
   }
 }

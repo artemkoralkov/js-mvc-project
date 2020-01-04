@@ -5,14 +5,15 @@ class MyFilmsView extends EventEmiter {
     super();
     this.list = document.getElementById('my-films-list');
     this.addingFilm = document.getElementById('my-Film');
-    this.myFilm = document.getElementById('my-Film');
+    // this.myFilm = document.getElementById('my-Film');
     this.clearMyFilms = document.getElementById('clear-my-films');
     this.sortButton = document.getElementById('sort-my-films');
+    this.list.addEventListener('click', this.handleOnClick.bind(this));
     this.sortButton.addEventListener('click', this.handleSort.bind(this));
     this.clearMyFilms.addEventListener('click', this.handleClear.bind(this));
-    this.myFilm.addEventListener('drop', this.handleDrop.bind(this));
-    this.myFilm.addEventListener('dragover', this.handleDragOver.bind(this));
-    this.myFilm.addEventListener('dragleave', this.handleDragLeave.bind(this));
+    this.list.addEventListener('drop', this.handleDrop.bind(this));
+    this.list.addEventListener('dragover', this.handleDragOver.bind(this));
+    this.list.addEventListener('dragleave', this.handleDragLeave.bind(this));
   }
 
   createFilmItem(film) {
@@ -31,22 +32,31 @@ class MyFilmsView extends EventEmiter {
 
   addEventListeners(item) {
     const removeButton = item.querySelector('button.removeMy');
-    const itemlabel = item.querySelector('label.mytitle');
-    itemlabel.addEventListener('click', this.handleOnClick.bind(this));
     removeButton.addEventListener('click', this.handleRemove.bind(this));
     return item;
   }
 
   handleSort() {
     const sortList = [];
-    for (let i = 0; i < this.list.children.length; i++) {
-      sortList.push(this.list.children[i].lastElementChild.textContent);
+    for (let i = 0; i < this.list.children.length; i += 1) {
+      sortList.push({
+        id: this.list.children[i].attributes[1].textContent,
+        text: this.list.children[i].lastElementChild.textContent,
+      });
     }
-    sortList.sort();
-    for (let i = 0; i < this.list.children.length; i++) {
-      this.list.children[i].lastElementChild.textContent = sortList[i];
+    sortList.sort((a, b) => {
+      if (a.text > b.text) {
+        return 1;
+      }
+      if (a.text < b.text) {
+        return -1;
+      }
+      return 0;
+    });
+    for (let i = 0; i < this.list.children.length; i += 1) {
+      this.list.children[i].attributes[1].textContent = sortList[i].id;
+      this.list.children[i].lastElementChild.textContent = sortList[i].text;
     }
-    this.emit('sort', null);
   }
 
   handleClear() {
@@ -70,6 +80,7 @@ class MyFilmsView extends EventEmiter {
   }
 
   handleDragOver(event) {
+    // alert(localStorage.getItem('mystate') !== null);
     event.preventDefault();
     const dragOverLabel = event.target;
     dragOverLabel.style.opacity = 0.5;
@@ -87,14 +98,12 @@ class MyFilmsView extends EventEmiter {
     event.preventDefault();
     const dropFilm = event.target;
     dropFilm.style.opacity = 1;
-    if (localStorage.getItem('mystate') !== null) {
+    if (localStorage.getItem('mystate').length !== null) {
       const filmsNames = JSON.parse(localStorage.getItem('mystate')).map(element => element.title);
       if (filmsNames.includes(event.dataTransfer.getData('Text'))) {
-        dropFilm.textContent = 'Фильм уже есть в списке';
         return null;
       }
     }
-    dropFilm.textContent = 'Добавить фильм';
     this.emit('drop', event.dataTransfer.getData('Text'));
     return this;
   }
@@ -106,6 +115,9 @@ class MyFilmsView extends EventEmiter {
 
   removeItem(id) {
     const listItem = this.findlistItem(id);
+    listItem
+      .querySelector('button.removeMy')
+      .removeEventListener('click', this.handleRemove.bind(this));
     this.list.removeChild(listItem);
   }
 }

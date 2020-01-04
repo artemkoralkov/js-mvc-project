@@ -7,29 +7,20 @@ class MyFilmsController {
     view.on('removeMy', this.removeFilm.bind(this));
     view.on('click', this.clickOnFilm.bind(this));
     view.on('drop', this.prepare.bind(this));
-    view.on('sort', this.sortMyFilms.bind(this));
-  }
-
-  sortMyFilms() {
-    this.model.mystate.sort((a, b) => parseInt(b.title, 10) - parseInt(a.title, 10));
   }
 
   prepare(film) {
-    let filmstate = JSON.parse(localStorage.getItem('state'));
-    filmstate = filmstate.map(elem => elem.title);
+    const filmstate = JSON.parse(localStorage.getItem('state')).map(elem => elem.title);
+    // filmstate = filmstate.map(elem => elem.title);
     const index = filmstate.indexOf(film);
-    filmstate = JSON.parse(localStorage.getItem('state'));
-    const info = Object.values(filmstate[index]);
-    // localStorage.removeItem('mystate');
+    // filmstate = JSON.parse(localStorage.getItem('state'));
+    const info = Object.values(JSON.parse(localStorage.getItem('state'))[index]);
     return this.addFilm(info);
   }
 
   addFilm(filmInfo) {
     const film = this.model.addItem({
       id: +filmInfo[0],
-      /* this.model.mystate.length > 0
-          ? this.model.mystate[this.model.mystate.length - 1].id + 1
-          : 1, */
       title: filmInfo[1],
       director: filmInfo[2],
       genre: filmInfo[3],
