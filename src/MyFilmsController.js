@@ -3,19 +3,22 @@ class MyFilmsController {
     this.model = model;
     this.view = view;
     this.filmsinfoview = filmsinfoview;
-    // view.on('add', this.addFilm.bind(this));
     view.on('removeMy', this.removeFilm.bind(this));
     view.on('click', this.clickOnFilm.bind(this));
     view.on('drop', this.prepare.bind(this));
+    view.on('clear', this.clear.bind(this));
   }
 
   prepare(film) {
     const filmstate = JSON.parse(localStorage.getItem('state')).map(elem => elem.title);
-    // filmstate = filmstate.map(elem => elem.title);
     const index = filmstate.indexOf(film);
-    // filmstate = JSON.parse(localStorage.getItem('state'));
     const info = Object.values(JSON.parse(localStorage.getItem('state'))[index]);
     return this.addFilm(info);
+  }
+
+  clear() {
+    localStorage.removeItem('mystate');
+    this.model.mystate = [];
   }
 
   addFilm(filmInfo) {

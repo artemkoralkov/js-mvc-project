@@ -33,7 +33,7 @@ class FilmsController {
 
   clickOnFilm(film) {
     const [info] = this.model.state.filter(item => item.title === film);
-    this.filmsinfoview.filmName.innerHTML = `<b>Название</b>: ${info.title}`; // textContent = `Название: ${info.title}`;
+    this.filmsinfoview.filmName.innerHTML = `<b>Название</b>: ${info.title}`;
     this.filmsinfoview.filmDirector.innerHTML = `<b>Режиссёр</b>: ${info.director}`;
     this.filmsinfoview.filmGenre.innerHTML = `<b>Жанр</b>: ${info.genre}`;
     this.filmsinfoview.filmDescription.textContent = `${info.description}`;

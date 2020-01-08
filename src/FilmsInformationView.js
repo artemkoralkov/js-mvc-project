@@ -3,7 +3,6 @@ import EventEmitter from './helper';
 class FilmsInformationView extends EventEmitter {
   constructor() {
     super();
-    // this.usingFilm = document.getElementById('film-info');
     this.filmId = document.getElementById('film-id');
     this.filmName = document.getElementById('film-name');
     this.filmDirector = document.getElementById('film-director');

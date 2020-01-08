@@ -60,9 +60,8 @@ class MyFilmsView extends EventEmiter {
   }
 
   handleClear() {
-    localStorage.removeItem('mystate');
     Array.from(this.list.childNodes).forEach(element => element.remove());
-    return this;
+    this.emit('clear', null);
   }
 
   handleOnClick({ target }) {
@@ -80,7 +79,6 @@ class MyFilmsView extends EventEmiter {
   }
 
   handleDragOver(event) {
-    // alert(localStorage.getItem('mystate') !== null);
     event.preventDefault();
     const dragOverLabel = event.target;
     dragOverLabel.style.opacity = 0.5;
@@ -98,7 +96,7 @@ class MyFilmsView extends EventEmiter {
     event.preventDefault();
     const dropFilm = event.target;
     dropFilm.style.opacity = 1;
-    if (localStorage.getItem('mystate').length !== null) {
+    if (localStorage.getItem('mystate') !== null) {
       const filmsNames = JSON.parse(localStorage.getItem('mystate')).map(element => element.title);
       if (filmsNames.includes(event.dataTransfer.getData('Text'))) {
         return null;
