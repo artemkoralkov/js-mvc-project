@@ -5,7 +5,6 @@ class MyFilmsView extends EventEmiter {
     super();
     this.list = document.getElementById('my-films-list');
     this.addingFilm = document.getElementById('my-Film');
-    // this.myFilm = document.getElementById('my-Film');
     this.clearMyFilms = document.getElementById('clear-my-films');
     this.sortButton = document.getElementById('sort-my-films');
     this.list.addEventListener('click', this.handleOnClick.bind(this));

@@ -19,7 +19,7 @@ body {
   }
 
   #films {
-  
+    
     /* min-width: 1000px; */
     scroll-behavior: auto;
     background:transparent;
@@ -29,7 +29,8 @@ body {
     background-repeat : repeat;
     float: left;
     height: 600px;
-    width: 450px;
+   /*  max-width: 50%; */
+    width: 30%;
     margin: 50px 0px 50px 20px;
     overflow: hidden;
     /* outline: 2px solid #000; /* Чёрная рамка */ 
@@ -55,7 +56,8 @@ body {
     background-color: transparent;
     float: left;
     overflow: hidden;
-    width: 450px;
+ /*    width: 450px; */
+ width: 30%;
     height: 600px;
     margin: 50px 0px 50px 20px;
     border: none;
@@ -63,13 +65,6 @@ body {
     border: 3px solid #fff; /* Белая рамка */
     border-radius: 10px; /* Радиус скругления */
   
-}
-
-  #film-description-field {
-
-    height: 150px;
-    overflow: scroll;
-
 }
 
   .filminformation {
@@ -90,7 +85,8 @@ body {
     /* background-position: right bottom; */
     background-repeat : repeat;
     float: left;
-    width: 450px;
+    /* width: 450px; */
+    width: 30%;
     height: 600px;
     margin: 50px 0px 50px 20px;
       
@@ -103,12 +99,12 @@ body {
 
 }
 
-#buttons {
+  #buttons {
 
-    position: absolute;
-    top: 725px;
+    position: relative;
+    top: 60px;
 
-}
+  }
 
   .remove, .removeMy {
 
@@ -118,5 +114,11 @@ body {
     width: 18px;  height: 23px;
        
   }
+  @media (max-width: 1006px){
+    #films,#my-Films,#films-info{
+      width: 50%;
+    }
+  }
+
   
  
