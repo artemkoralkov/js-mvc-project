@@ -1,64 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Andersen JS Course</title>
+	  <meta charset="UTF-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	  <title>Andersen JS Course</title>
   </head>
   <body>
-	<h1 style="color: aliceblue; font-size: 40px;">
-  	Фильмотека
+	  <h1 style="color: aliceblue; font-size: 40px;">
+  	  Фильмотека
     </h1>
     <main id="app">
-  
-             
-        <div id="films">
-          <h1>
+      <div id="films">
+        <h1>
             Фильмы
-          </h1> 
-          <ul id="films-list">
-          </ul>
-          
-          
-          <form id="films-Lib">
-              <fieldset>
-              <legend>Добавить фильм</legend>
-              <p>Название:<br/><input id="add-film-Name" type="text"></p>
-              <p>Режиссёр:<br/><input id="add-film-Director" type="text"></p>
-              <p>Жанр:<br/><input id="add-film-Genre" type="text"></p>
-              <p>Описание:<br/><input id="add-film-Description" type="text"></p>
-              <p>Ссылка на постер:<br/><input id="add-film-poster" type="text"></p>
-              <button id="add-button" type="submit">Добавить</button>
-          </form>
-        </div>
-        <div class = "films-Information" id = "films-info">
+        </h1> 
+        <ul id="films-list">
+        </ul>    
+        <form id="films-Lib">
+          <fieldset>
+          <legend>Добавить фильм</legend>
+          <p>Название:<br/><input id="add-film-Name" type="text"></p>
+          <p>Режиссёр:<br/><input id="add-film-Director" type="text"></p>
+          <p>Жанр:<br/><input id="add-film-Genre" type="text"></p>
+          <p>Описание:<br/><input id="add-film-Description" type="text"></p>
+          <p>Ссылка на постер:<br/><input id="add-film-poster" type="text"></p>
+          <button id="add-button" type="submit">Добавить</button>
+        </form>
+      </div>
+      <div class = "films-Information" id = "films-info">
         <h1>
           Информация о фильме
         </h1>
         <p style="text-align: center; font-weight: 700;">Постер </p>
         <p id= "film-poster" style="text-align: center;" ><img  height="230px" ></p>
         <ul id = "film-info-list">
-        <li id = "film-name"><b>Название</b>:</li>
-        <li id = "film-director"><b>Режиссёр</b>: </li>
-        <li id = "film-genre"><b>Жанр</b>: </li>
+          <li id = "film-name"><b>Название</b>:</li>
+          <li id = "film-director"><b>Режиссёр</b>: </li>
+          <li id = "film-genre"><b>Жанр</b>: </li>
         </ul>
         <p style="text-align: center; font-weight: 700;"> Описание: </p>
-        <fieldset style="overflow: auto; height: 100px;">
-        <p id = 'film-description'></p>
+        <fieldset  style="overflow: auto; position: static; height: 130px;">
+          <p id = 'film-description'></p>
       </fieldset>
       </div>
-        <div id="my-Films">
-      <h1>
-        Мои фильмы
-      </h1>
-      <!-- <label id = "my-Film" > <p style="text-align: center;">Добавить фильм</p></label> -->
-      <ul id ="my-films-list">
-      </ul>
-      <fieldset id="buttons" style="border: aliceblue;">
-      <button id ="clear-my-films">Очистить</button>
-      <button id ="sort-my-films">Отсортировать по названию</button>
-    </fieldset>
-    </div>
+      <div id="my-Films">
+        <h1>
+          Мои фильмы
+        </h1>
+        <ul id ="my-films-list">
+        </ul>
+        <fieldset id="buttons" style="border: aliceblue;">
+          <button id ="clear-my-films">Очистить</button>
+          <button id ="sort-my-films">Отсортировать по названию</button>
+        </fieldset>
+      </div>
   </body>
 </html>

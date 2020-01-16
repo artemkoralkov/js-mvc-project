@@ -20,29 +20,25 @@ body {
 
   #films {
     
-    /* min-width: 1000px; */
     scroll-behavior: auto;
     background:transparent;
     background-image: url(../images/email-pattern.png);
     background-size: 100%;
-   /*  background-position: right bottom; */
     background-repeat : repeat;
     float: left;
-    height: 600px;
-   /*  max-width: 50%; */
+    height: 650px;
     width: 30%;
     margin: 50px 0px 50px 20px;
     overflow: hidden;
-    /* outline: 2px solid #000; /* Чёрная рамка */ 
-    border: 3px solid #fff; /* Белая рамка */
-    border-radius: 10px; /* Радиус скругления */
+    border: 3px solid #fff; 
+    border-radius: 10px; 
     
   }
 
   #films-list {
 
     overflow: auto;
-    height: 140px;
+    height: 190px;
     
   }
 
@@ -51,19 +47,16 @@ body {
     background:transparent;
     background-image: url(../images/email-pattern.png);
     background-size: 100%;
-    /* background-position: right bottom; */
     background-repeat : repeat;
     background-color: transparent;
     float: left;
     overflow: hidden;
- /*    width: 450px; */
- width: 30%;
-    height: 600px;
+    width: 30%;
+    height: 650px;
     margin: 50px 0px 50px 20px;
     border: none;
-    /* outline: 2px solid #000; /* Чёрная рамка */ 
-    border: 3px solid #fff; /* Белая рамка */
-    border-radius: 10px; /* Радиус скругления */
+    border: 3px solid #fff;
+    border-radius: 10px;
   
 }
 
@@ -77,25 +70,22 @@ body {
   #my-Films {
     
     background:transparent;
-      /* outline: 2px solid #000; /* Чёрная рамка */ 
-    border: 3px solid #fff; /* Белая рамка */
-    border-radius: 10px; /* Радиус скругления */
+    border: 3px solid #fff;
+    border-radius: 10px;
     background-image: url(../images/email-pattern.png);
     background-size: 100%;
-    /* background-position: right bottom; */
     background-repeat : repeat;
     float: left;
-    /* width: 450px; */
     width: 30%;
-    height: 600px;
+    height: 650px;
     margin: 50px 0px 50px 20px;
-      
+    
   }
 
   #my-films-list {
 
     overflow: auto;
-    height: 400px;
+    height: 450px;
 
 }
 
