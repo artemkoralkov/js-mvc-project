@@ -109,7 +109,7 @@ body {
       display: none;
     }
   }
-  @media (max-width: 1006px){
+  @media (max-width: 1000px){
     #films,#my-Films,#films-info{
       width: 50%;
     }
