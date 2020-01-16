@@ -7,7 +7,6 @@ class MyFilmsView extends EventEmiter {
     this.addingFilm = document.getElementById('my-Film');
     this.clearMyFilms = document.getElementById('clear-my-films');
     this.sortButton = document.getElementById('sort-my-films');
-    this.list.addEventListener('click', this.handleOnClick.bind(this));
     this.sortButton.addEventListener('click', this.handleSort.bind(this));
     this.clearMyFilms.addEventListener('click', this.handleClear.bind(this));
     this.list.addEventListener('drop', this.handleDrop.bind(this));
@@ -30,7 +29,9 @@ class MyFilmsView extends EventEmiter {
   }
 
   addEventListeners(item) {
+    const itemlabel = item.querySelector('label.mytitle');
     const removeButton = item.querySelector('button.removeMy');
+    itemlabel.addEventListener('click', this.handleOnClick.bind(this));
     removeButton.addEventListener('click', this.handleRemove.bind(this));
     return item;
   }
@@ -112,6 +113,9 @@ class MyFilmsView extends EventEmiter {
 
   removeItem(id) {
     const listItem = this.findlistItem(id);
+    listItem
+      .querySelector('label.mytitle')
+      .removeEventListener('click', this.handleOnClick.bind(this));
     listItem
       .querySelector('button.removeMy')
       .removeEventListener('click', this.handleRemove.bind(this));

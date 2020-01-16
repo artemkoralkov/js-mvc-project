@@ -1,13 +1,23 @@
 class FilmsController {
-  constructor(model, view, filmsinfoview, mymodel, myview) {
+  constructor(model, view, filmsinfoview, mymodel, myview, mycontroller) {
     this.model = model;
     this.view = view;
     this.filmsinfoview = filmsinfoview;
     this.mymodel = mymodel;
     this.myview = myview;
+    this.mycontroller = mycontroller;
     view.on('add', this.addFilm.bind(this));
     view.on('remove', this.removeFilm.bind(this));
     view.on('click', this.clickOnFilm.bind(this));
+    view.on('sendClick', this.clikOnSend.bind(this));
+  }
+
+  clikOnSend(film) {
+    const [info] = this.model.state.filter(item => item.title === film);
+    if (this.mymodel.mystate.map(elem => elem.title).includes(info.title)) {
+      return;
+    }
+    this.mycontroller.addFilm(Object.values(info));
   }
 
   addFilm(filmInfo) {

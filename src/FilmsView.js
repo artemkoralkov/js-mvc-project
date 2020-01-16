@@ -1,7 +1,7 @@
 import EventEmiter from './helper';
 
-const image = require('C:/Users/Пользователь/Documents/js-project/src/images/img-not-found.png');
 const unirest = require('unirest');
+const image = require('./images/img-not-found.png');
 
 class FilmsView extends EventEmiter {
   constructor() {
@@ -14,12 +14,14 @@ class FilmsView extends EventEmiter {
     this.inputFilmDescription = document.getElementById('add-film-Description');
     this.inputImgSrc = document.getElementById('add-film-poster');
     this.list = document.getElementById('films-list');
-    this.list.addEventListener('click', this.handleClick.bind(this));
     this.form.addEventListener('submit', this.handleAdd.bind(this));
   }
 
   createFilmItem(film) {
     const removeButton = document.createElement('button');
+    const sendButton = document.createElement('button');
+    sendButton.className = 'send';
+    sendButton.textContent = '+';
     removeButton.className = 'remove';
     const label = document.createElement('label');
     label.className = 'title';
@@ -29,6 +31,7 @@ class FilmsView extends EventEmiter {
     item.className = 'film-Item';
     item.setAttribute('data-id', film.id);
     item.appendChild(removeButton);
+    item.appendChild(sendButton);
     item.appendChild(label);
     return this.addEventListeners(item);
   }
@@ -36,9 +39,17 @@ class FilmsView extends EventEmiter {
   addEventListeners(item) {
     const removeButton = item.querySelector('button.remove');
     const itemlabel = item.querySelector('label.title');
+    const sendButton = item.querySelector('button.send');
     itemlabel.addEventListener('dragstart', this.handleDragStart.bind(this));
+    itemlabel.addEventListener('click', this.handleClick.bind(this));
     removeButton.addEventListener('click', this.handleRemove.bind(this));
+    sendButton.addEventListener('click', this.handleClickOnSend.bind(this));
     return item;
+  }
+
+  handleClickOnSend({ target }) {
+    const name = target.parentNode.children[2].textContent;
+    this.emit('sendClick', name);
   }
 
   handleAdd(event) {
@@ -60,14 +71,18 @@ class FilmsView extends EventEmiter {
         .end(response => {
           if (response.body.Response === 'False') {
             this.inputFilmName.value = `${response.body.Error}, введите название на английском`;
-          } else
-            this.emit('add', [
-              `${response.body.Title}`,
-              `${response.body.Director}`,
-              `${response.body.Genre}`,
-              `${response.body.Plot}`,
-              `${response.body.Poster}`,
-            ]);
+          } else if (filmsNames.includes(response.body.Title)) {
+            this.inputFilmName.value = 'Фильм уже есть в списке';
+            return null;
+          }
+          this.emit('add', [
+            `${response.body.Title}`,
+            `${response.body.Director}`,
+            `${response.body.Genre}`,
+            `${response.body.Plot}`,
+            `${response.body.Poster}`,
+          ]);
+          return null;
         });
       return null;
     }
@@ -140,9 +155,14 @@ class FilmsView extends EventEmiter {
     listItem
       .querySelector('label.title')
       .removeEventListener('dragstart', this.handleDragStart.bind(this));
+
+    listItem.querySelector('label.title').removeEventListener('click', this.handleClick.bind(this));
     listItem
       .querySelector('button.remove')
       .removeEventListener('click', this.handleRemove.bind(this));
+    listItem
+      .querySelector('button.send')
+      .removeEventListener('click', this.handleClickOnSend.bind(this));
     this.list.removeChild(listItem);
   }
 }

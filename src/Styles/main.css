@@ -114,11 +114,20 @@ body {
     width: 18px;  height: 23px;
        
   }
+  @media screen {
+    .send{
+      display: none;
+    }
+  }
   @media (max-width: 1006px){
     #films,#my-Films,#films-info{
       width: 50%;
     }
+    .send{
+      display: inline;
+    }
   }
+ 
 
   
  

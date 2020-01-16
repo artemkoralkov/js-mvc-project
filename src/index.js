@@ -18,7 +18,8 @@ const filmsController = new FilmsController(
   filmsView,
   filmsInfoView,
   myFilmsModel,
-  myFilmsView
+  myFilmsView,
+  myFilmsController
 );
 const films = [
   {
