@@ -1,6 +1,6 @@
-import EventEmiter from './helper';
+import { EventEmitter, createElement } from './helpers';
 
-class MyFilmsView extends EventEmiter {
+class MyFilmsListView extends EventEmitter {
   constructor() {
     super();
     this.list = document.getElementById('my-films-list');
@@ -96,8 +96,10 @@ class MyFilmsView extends EventEmiter {
     event.preventDefault();
     const dropFilm = event.target;
     dropFilm.style.opacity = 1;
-    if (localStorage.getItem('mystate') !== null) {
-      const filmsNames = JSON.parse(localStorage.getItem('mystate')).map(element => element.title);
+    if (localStorage.getItem('myFilmsListState') !== null) {
+      const filmsNames = JSON.parse(localStorage.getItem('myFilmsListState')).map(
+        element => element.title
+      );
       if (filmsNames.includes(event.dataTransfer.getData('Text'))) {
         return null;
       }
@@ -123,4 +125,4 @@ class MyFilmsView extends EventEmiter {
   }
 }
 
-export default MyFilmsView;
+export default MyFilmsListView;

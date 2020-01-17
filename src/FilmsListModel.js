@@ -1,4 +1,4 @@
-class FilmsModel {
+class FilmsListModel {
   constructor(state = []) {
     this.state = state;
   }
@@ -9,17 +9,14 @@ class FilmsModel {
 
   addItem(item) {
     this.state.push(item);
-    localStorage.setItem('state', JSON.stringify(this.state));
+    localStorage.setItem('filmsListState', JSON.stringify(this.state));
     return item;
   }
 
   removeItem(id) {
-    localStorage.setItem(
-      'state',
-      JSON.stringify(JSON.parse(localStorage.getItem('state')).filter(elem => elem.id !== +id))
-    );
     this.state = this.state.filter(item => item.id !== +id);
+    localStorage.setItem('filmsListState', JSON.stringify(this.state));
   }
 }
 
-export default FilmsModel;
+export default FilmsListModel;

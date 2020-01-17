@@ -1,25 +1,29 @@
 import './Styles/main.css';
-import FilmsModel from './FilmsModel';
-import FilmsView from './FilmsView';
-import FilmsController from './FilmsController';
+import FilmsListModel from './FilmsListModel';
+import FilmsListView from './FilmsListView';
+import FilmsListController from './FilmsListController';
 import FilmsInformationView from './FilmsInformationView';
-import MyFilmsView from './MyFilmsView';
-import MyFilmsModel from './MyFilmsModel';
-import MyFilmsController from './MyFilmsController';
+import MyFilmsListView from './MyFilmsListView';
+import MyFilmsListModel from './MyFilmsListModel';
+import MyFilmsListController from './MyFilmsListController';
 
-const filmsModel = new FilmsModel();
-const filmsView = new FilmsView();
+const filmsListModel = new FilmsListModel();
+const filmsListView = new FilmsListView();
 const filmsInfoView = new FilmsInformationView();
-const myFilmsView = new MyFilmsView();
-const myFilmsModel = new MyFilmsModel();
-const myFilmsController = new MyFilmsController(myFilmsModel, myFilmsView, filmsInfoView);
-const filmsController = new FilmsController(
-  filmsModel,
-  filmsView,
+const myFilmsListView = new MyFilmsListView();
+const myFilmsListModel = new MyFilmsListModel();
+const myFilmsListController = new MyFilmsListController(
+  myFilmsListModel,
+  myFilmsListView,
+  filmsInfoView
+);
+const filmsListController = new FilmsListController(
+  filmsListModel,
+  filmsListView,
   filmsInfoView,
-  myFilmsModel,
-  myFilmsView,
-  myFilmsController
+  myFilmsListModel,
+  myFilmsListView,
+  myFilmsListController
 );
 const films = [
   {
@@ -97,40 +101,43 @@ const films = [
 ];
 function startFilms(arrFilms, arrMyFilms) {
   arrFilms.forEach(element => {
-    filmsController.addFilm([
-      element.title,
-      element.director,
-      element.genre,
-      element.description,
-      element.poster,
-    ]);
+    filmsListController.addFilm({
+      title: element.title,
+      director: element.director,
+      genre: element.genre,
+      description: element.description,
+      poster: element.poster,
+    });
   });
-  if (localStorage.getItem('mystate') !== null) {
+  if (localStorage.getItem('myFilmsListState') !== null) {
     arrMyFilms.forEach(element => {
-      myFilmsController.addFilm([
-        element.id,
-        element.title,
-        element.director,
-        element.genre,
-        element.description,
-        element.poster,
-      ]);
+      myFilmsListController.addFilm({
+        id: element.id,
+        title: element.title,
+        director: element.director,
+        genre: element.genre,
+        description: element.description,
+        poster: element.poster,
+      });
     });
   }
 }
-if (localStorage.getItem('state') === null || localStorage.getItem('state').length < 3) {
+if (
+  localStorage.getItem('filmsListState') === null ||
+  localStorage.getItem('filmsListState').length < 3
+) {
   films.forEach(element => {
-    filmsController.addFilm([
-      element.title,
-      element.director,
-      element.genre,
-      element.description,
-      element.poster,
-    ]);
+    filmsListController.addFilm({
+      title: element.title,
+      director: element.director,
+      genr: element.genre,
+      description: element.description,
+      poster: element.poster,
+    });
   });
 } else {
   startFilms(
-    JSON.parse(localStorage.getItem('state')),
-    JSON.parse(localStorage.getItem('mystate'))
+    JSON.parse(localStorage.getItem('filmsListState')),
+    JSON.parse(localStorage.getItem('myFilmsListState'))
   );
 }
