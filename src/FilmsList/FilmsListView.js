@@ -1,8 +1,9 @@
 import unirest from 'unirest';
-import { EventEmitter, createElement } from './helpers';
-import image from './images/img-not-found.png';
+import { EventEmitter, createElement } from '../helpers/helpers';
+import image from '../images/img-not-found.png';
 
 const regURL = /^(?:(?:https?|ftp|telnet):\/\/(?:[a-z0-9_-]{1,32}(?::[a-z0-9_-]{1,32})?@)?)?(?:(?:[a-z0-9-]{1,128}\.)+(?:com|net|org|mil|edu|arpa|ru|gov|biz|info|aero|inc|name|[a-z]{2})|(?!0)(?:(?!0[^.]|255)[0-9]{1,3}\.){3}(?!0|255)[0-9]{1,3})(?:\/[a-z0-9.,_@%&?+=~/-]*)?(?:#[^ '"&<>]*)?$/i;
+let filmPoster = null;
 
 class FilmsListView extends EventEmitter {
   constructor() {
@@ -13,14 +14,14 @@ class FilmsListView extends EventEmitter {
     this.inputFilmDirector = document.getElementById('add-film-Director');
     this.inputFilmGenre = document.getElementById('add-film-Genre');
     this.inputFilmDescription = document.getElementById('add-film-Description');
-    this.inputImgSrc = document.getElementById('add-film-poster');
+    this.inputFilmPoster = document.getElementById('add-film-poster');
     this.list = document.getElementById('films-list');
     this.form.addEventListener('submit', this.handleAdd.bind(this));
   }
 
   createFilmItem(film) {
-    const removeButton = createElement('button', { className: 'remove' });
-    const sendButton = createElement('button', { className: 'send' }, '+');
+    const removeButton = createElement('button', { className: 'removeFilm' });
+    const sendButton = createElement('button', { className: 'sendFilm' }, '+');
     const label = createElement('label', { className: 'title', draggable: 'true' }, film.title);
     const item = createElement(
       'li',
@@ -33,11 +34,11 @@ class FilmsListView extends EventEmitter {
   }
 
   addEventListeners(item) {
-    const removeButton = item.querySelector('button.remove');
+    const removeButton = item.querySelector('button.removeFilm');
     const itemlabel = item.querySelector('label.title');
-    const sendButton = item.querySelector('button.send');
+    const sendButton = item.querySelector('button.sendFilm');
     itemlabel.addEventListener('dragstart', this.handleDragStart.bind(this));
-    itemlabel.addEventListener('click', this.handleClick.bind(this));
+    itemlabel.addEventListener('click', this.handleClickOnFilm.bind(this));
     removeButton.addEventListener('click', this.handleRemove.bind(this));
     sendButton.addEventListener('click', this.handleClickOnSend.bind(this));
     return item;
@@ -45,7 +46,7 @@ class FilmsListView extends EventEmitter {
 
   handleClickOnSend({ target }) {
     const name = target.parentNode.children[2].textContent;
-    this.emit('sendClick', name);
+    this.emit('clickOnSendButton', name);
   }
 
   handleAdd(event) {
@@ -53,36 +54,36 @@ class FilmsListView extends EventEmitter {
     const filmsNames = JSON.parse(localStorage.getItem('filmsListState')).map(
       element => element.title
     );
+
     if (filmsNames.includes(`${this.inputFilmName.value}`)) {
       this.inputFilmName.value = 'Фильм уже есть в списке';
       return null;
     }
-    if (
-      this.inputFilmName.value === '' ||
-      this.inputFilmName.value === 'Фильм уже есть в списке' ||
-      this.inputFilmDirector.value === '' ||
-      this.inputFilmGenre.value === '' ||
-      this.inputFilmDescription.value === ''
-    ) {
-      return null;
-    }
+
     if (
       this.inputFilmGenre.value === '' &&
       this.inputFilmDirector.value === '' &&
       this.inputFilmDescription.value === '' &&
-      this.inputImgSrc.value === '' &&
+      this.inputFilmPoster.value === '' &&
       this.inputFilmName.value !== ''
     ) {
       unirest
         .get(`http://www.omdbapi.com/?t=${this.inputFilmName.value}&apikey=4085b160`)
         .end(response => {
           if (response.body.Response === 'False') {
-            this.inputFilmName.value = `${response.body.Error}, введите название на английском`;
-          } else if (filmsNames.includes(response.body.Title)) {
+            this.inputFilmName.value = `${response.body.Error}`;
+            this.inputFilmDirector.value = '';
+            this.inputFilmGenre.value = '';
+            this.inputFilmDescription.value = '';
+            this.inputFilmPoster.value = '';
+            return null;
+          }
+
+          if (filmsNames.includes(response.body.Title)) {
             this.inputFilmName.value = 'Фильм уже есть в списке';
             return null;
           }
-          this.emit('add', {
+          this.emit('addFilm', {
             title: `${response.body.Title}`,
             director: `${response.body.Director}`,
             genre: `${response.body.Genre}`,
@@ -93,36 +94,39 @@ class FilmsListView extends EventEmitter {
         });
       return null;
     }
-    if (this.inputImgSrc.value === '' || !this.inputImgSrc.value.match(regURL)) {
-      this.emit('add', {
-        title: `${this.inputFilmName.value}`,
-        director: `${this.inputFilmDirector.value}`,
-        genre: `${this.inputFilmGenre.value}`,
-        description: `${this.inputFilmDescription.value}`,
-        poster: `${image}`,
-      });
+
+    if (
+      this.inputFilmName.value === '' ||
+      this.inputFilmName.value === 'Фильм уже есть в списке' ||
+      this.inputFilmDirector.value === '' ||
+      this.inputFilmGenre.value === '' ||
+      this.inputFilmDescription.value === ''
+    ) {
       return null;
     }
-    this.emit('add', {
+
+    if (this.inputFilmPoster.value === '' || !this.inputFilmPoster.value.match(regURL)) {
+      filmPoster = image;
+    }
+    this.emit('addFilm', {
       title: `${this.inputFilmName.value}`,
       director: `${this.inputFilmDirector.value}`,
       genre: `${this.inputFilmGenre.value}`,
       description: `${this.inputFilmDescription.value}`,
-      poster: `${this.inputImgSrc.value}`,
+      poster: filmPoster || `${this.inputFilmPoster.value}`,
     });
 
     return null;
   }
 
-  handleClick({ target }) {
+  handleClickOnFilm({ target }) {
     const name = target.textContent;
-    this.emit('click', name);
+    this.emit('clickOnFilm', name);
   }
 
   handleRemove({ target }) {
     const listItem = target.parentNode;
-
-    this.emit('remove', listItem.getAttribute('data-id'));
+    this.emit('removeFilm', listItem.getAttribute('data-id'));
   }
 
   findlistItem(id) {
@@ -140,7 +144,7 @@ class FilmsListView extends EventEmitter {
     this.inputFilmDirector.value = '';
     this.inputFilmGenre.value = '';
     this.inputFilmDescription.value = '';
-    this.inputImgSrc.value = '';
+    this.inputFilmPoster.value = '';
     this.list.appendChild(listItem);
   }
 
@@ -148,12 +152,12 @@ class FilmsListView extends EventEmitter {
     const listItem = this.findlistItem(id);
     const labelTitle = listItem.querySelector('label.title');
     labelTitle.removeEventListener('dragstart', this.handleDragStart.bind(this));
-    labelTitle.removeEventListener('click', this.handleClick.bind(this));
+    labelTitle.removeEventListener('click', this.handleClickOnFilm.bind(this));
     listItem
-      .querySelector('button.remove')
+      .querySelector('button.removeFilm')
       .removeEventListener('click', this.handleRemove.bind(this));
     listItem
-      .querySelector('button.send')
+      .querySelector('button.sendFilm')
       .removeEventListener('click', this.handleClickOnSend.bind(this));
     this.list.removeChild(listItem);
   }

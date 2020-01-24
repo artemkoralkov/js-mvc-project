@@ -36,16 +36,17 @@ class EventEmitter {
     }
   }
 }
-function save(data, storageItemName) {
+function saveToStorage(data, storageKeyName) {
   const string = JSON.stringify(data);
 
-  localStorage.setItem(`${storageItemName}`, string);
+  localStorage.setItem(`${storageKeyName}`, string);
 }
 
-function load(storageItemName) {
-  const string = localStorage.getItem(storageItemName);
+function loadFromStorage(storageKeyName) {
+  const string = localStorage.getItem(storageKeyName);
   const data = JSON.parse(string);
 
   return data;
 }
-export { createElement, EventEmitter, save, load };
+
+export { createElement, EventEmitter, saveToStorage, loadFromStorage };

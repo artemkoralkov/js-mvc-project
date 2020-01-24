@@ -13,18 +13,18 @@ class FilmsListController {
     this.myFilmsListModel = myFilmsListModel;
     this.myFilmsListView = myFilmsListView;
     this.myFilmsListController = myFilmsListController;
-    filmsListView.on('add', this.addFilm.bind(this));
-    filmsListView.on('remove', this.removeFilm.bind(this));
-    filmsListView.on('click', this.clickOnFilm.bind(this));
-    filmsListView.on('sendClick', this.clikOnSend.bind(this));
+    filmsListView.on('addFilm', this.addFilm.bind(this));
+    filmsListView.on('removeFilm', this.removeFilm.bind(this));
+    filmsListView.on('clickOnFilm', this.clickOnFilm.bind(this));
+    filmsListView.on('clickO  nSendButton', this.sendFilmToMyFilms.bind(this));
   }
 
-  clikOnSend(film) {
-    const [info] = this.filmsListModel.state.filter(item => item.title === film);
-    if (this.myFilmsListModel.state.map(elem => elem.title).includes(info.title)) {
+  sendFilmToMyFilms(film) {
+    const [filmInfo] = this.filmsListModel.state.filter(item => item.title === film);
+    if (this.myFilmsListModel.state.map(elem => elem.title).includes(filmInfo.title)) {
       return;
     }
-    this.myFilmsListController.addFilm(info);
+    this.myFilmsListController.addFilm(filmInfo);
   }
 
   addFilm(filmInfo) {
@@ -52,8 +52,8 @@ class FilmsListController {
   }
 
   clickOnFilm(film) {
-    const [info] = this.filmsListModel.state.filter(item => item.title === film);
-    this.filmsInfoView.addInfo(info);
+    const [filmInfo] = this.filmsListModel.state.filter(item => item.title === film);
+    this.filmsInfoView.addInfo(filmInfo);
   }
 }
 

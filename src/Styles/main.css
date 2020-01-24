@@ -96,7 +96,7 @@ body {
 
   }
 
-  .remove, .removeMy {
+  .removeFilm, .removeMyFilm {
 
     background: url(../images/recyclebin.png);
     background-size: 90%;

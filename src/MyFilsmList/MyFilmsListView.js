@@ -1,8 +1,9 @@
-import { EventEmitter, createElement } from './helpers';
+import { EventEmitter, createElement } from '../helpers/helpers';
 
 class MyFilmsListView extends EventEmitter {
   constructor() {
     super();
+    this.filmsListState = JSON.parse(localStorage.getItem('filmsListState'));
     this.list = document.getElementById('my-films-list');
     this.addingFilm = document.getElementById('my-Film');
     this.clearMyFilms = document.getElementById('clear-my-films');
@@ -15,22 +16,20 @@ class MyFilmsListView extends EventEmitter {
   }
 
   createFilmItem(film) {
-    const removeButton = document.createElement('button');
-    removeButton.className = 'removeMy';
-    const label = document.createElement('label');
-    label.className = 'mytitle';
-    label.textContent = film.title;
-    const item = document.createElement('li');
-    item.className = 'myfilm-Item';
-    item.setAttribute('mydata-id', film.id);
-    item.appendChild(removeButton);
-    item.appendChild(label);
+    const removeButton = createElement('button', { className: 'removeMyFilm' });
+    const label = createElement('label', { className: 'my-title' }, film.title);
+    const item = createElement(
+      'li',
+      { className: 'my-film-item', 'data-id': film.id },
+      removeButton,
+      label
+    );
     return this.addEventListeners(item);
   }
 
   addEventListeners(item) {
-    const itemlabel = item.querySelector('label.mytitle');
-    const removeButton = item.querySelector('button.removeMy');
+    const itemlabel = item.querySelector('label.my-title');
+    const removeButton = item.querySelector('button.removeMyFilm');
     itemlabel.addEventListener('click', this.handleOnClick.bind(this));
     removeButton.addEventListener('click', this.handleRemove.bind(this));
     return item;
@@ -71,11 +70,11 @@ class MyFilmsListView extends EventEmitter {
 
   handleRemove({ target }) {
     const listItem = target.parentNode;
-    this.emit('removeMy', listItem.getAttribute('mydata-id'));
+    this.emit('removeMyFilm', listItem.getAttribute('data-id'));
   }
 
   findlistItem(id) {
-    return this.list.querySelector(`[mydata-id="${id}"]`);
+    return this.list.querySelector(`[data-id="${id}"]`);
   }
 
   handleDragOver(event) {
@@ -94,17 +93,12 @@ class MyFilmsListView extends EventEmitter {
 
   handleDrop(event) {
     event.preventDefault();
-    const dropFilm = event.target;
-    dropFilm.style.opacity = 1;
-    if (localStorage.getItem('myFilmsListState') !== null) {
-      const filmsNames = JSON.parse(localStorage.getItem('myFilmsListState')).map(
-        element => element.title
-      );
-      if (filmsNames.includes(event.dataTransfer.getData('Text'))) {
-        return null;
-      }
-    }
-    this.emit('drop', event.dataTransfer.getData('Text'));
+    const dropFilmLabel = event.target;
+    dropFilmLabel.style.opacity = 1;
+    const [filmInfo] = this.filmsListState.filter(
+      elem => elem.title === event.dataTransfer.getData('Text')
+    );
+    this.emit('drop', filmInfo);
     return this;
   }
 
@@ -116,10 +110,10 @@ class MyFilmsListView extends EventEmitter {
   removeItem(id) {
     const listItem = this.findlistItem(id);
     listItem
-      .querySelector('label.mytitle')
+      .querySelector('label.my-title')
       .removeEventListener('click', this.handleOnClick.bind(this));
     listItem
-      .querySelector('button.removeMy')
+      .querySelector('button.removeMyFilm')
       .removeEventListener('click', this.handleRemove.bind(this));
     this.list.removeChild(listItem);
   }
